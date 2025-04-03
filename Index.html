@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Test</title>
+</head>
+<body>
+    <button onclick="requestAndSendNotification()">Enable Notifications & Send Test</button>
+
+    <script>
+        function requestAndSendNotification() {
+            if (!("Notification" in window)) {
+                alert("Your browser does not support notifications.");
+                return;
+            }
+
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    new Notification("Hi", {
+                        body: "This is a test notification",
+                        icon: "https://via.placeholder.com/128" // Optional icon
+                    });
+                } else {
+                    alert("Permission denied. Please allow notifications.");
+                }
+            }).catch(error => {
+                console.error("Permission request error:", error);
+            });
+        }
+    </script>
+</body>
+</html>
